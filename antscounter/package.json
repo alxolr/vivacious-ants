@@ -1,0 +1,23 @@
+{
+  "name": "antscounter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Alexandru Olaru",
+  "license": "ISC",
+  "dependencies": {
+    "bloomrun": "^4.1.0",
+    "net-object-stream": "^2.1.0",
+    "pump": "^3.0.0",
+    "through2": "^2.0.3"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.9.0"
+  }
+}
