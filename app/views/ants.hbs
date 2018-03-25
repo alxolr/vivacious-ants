@@ -1,6 +1,9 @@
 <h1>{{title}}</h1>
 <p>Welcome to {{title}}</p>
 
-<form action="post">
-  <input type="text" name="ants" placeholder="input data" />
+<form action="/ants/count" method="post">
+  <textarea name="ants" placeholder="input data">{{ants}}</textarea>
+  <button type="submit">Send</button>
 </form>
+
+Response: {{ count }}
