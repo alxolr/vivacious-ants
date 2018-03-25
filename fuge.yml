@@ -1,0 +1,19 @@
+fuge_global:
+  tail: true
+  monitor: true
+  monitor_excludes:
+    - '**/node_modules/**'
+    - '**/.git/**'
+    - '**/*.log/'
+antscounter:
+  type: node
+  path: ./antscounter
+  run: 'node index.js'
+  ports:
+    - main=8080
+app:
+  type: node
+  path: ./app
+  run: 'node ./bin/www'
+  ports:
+    - main=3000
