@@ -1,5 +1,6 @@
 fuge_global:
   tail: true
+  run_containers: false
   monitor: true
   monitor_excludes:
     - '**/node_modules/**'
@@ -11,9 +12,21 @@ antscounter:
   run: 'node index.js'
   ports:
     - main=8080
+analytics:
+  type: node
+  path: ./analytics
+  run: 'node index.js'
+  ports:
+    - main=8081
 app:
   type: node
   path: ./app
   run: 'node ./bin/www'
   ports:
     - main=3000
+mongo:
+  image: mongo
+  type: container
+  ports:
+    - main=27017:27017
+

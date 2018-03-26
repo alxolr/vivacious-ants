@@ -3,7 +3,12 @@ const net = require('net');
 const nos = require('net-object-stream');
 const router = express.Router();
 
-const { ANTSCOUNTER_SERVICE_HOST, ANTSCOUNTER_SERVICE_PORT } = process.env;
+const {
+  ANTSCOUNTER_SERVICE_HOST,
+  ANTSCOUNTER_SERVICE_PORT,
+  ANALYTICS_SERVICE_HOST,
+  ANALYTICS_SERVICE_PORT,
+} = process.env;
 
 router.get('/', function (req, res, next) {
   res.render('ants', { title: 'Ants page', count: 0, ants: '' });
@@ -11,20 +16,20 @@ router.get('/', function (req, res, next) {
 
 router.post('/count', (req, res, next) => {
   const { ants } = req.body;
-  const client = createClient('count', {
-    host: ANTSCOUNTER_SERVICE_HOST,
-    port: ANTSCOUNTER_SERVICE_PORT,
-  });
+  const clients = {
+    antscounter: createClient('antscounter', { host: ANTSCOUNTER_SERVICE_HOST, port: ANTSCOUNTER_SERVICE_PORT }),
+    analytics: createClient('analytics', { host: ANALYTICS_SERVICE_HOST, port: ANALYTICS_SERVICE_PORT }),
+  }
 
-  const role = 'antscounter';
-  const cmd = 'count';
-
-  client.once('data', (data) => {
+  clients.antscounter.once('data', (data) => {
     const { result } = data;
+
+    clients.analytics.write({ role: 'analytics', cmd: 'log', ants, result }); // we are logging asynchronously
+
     res.render('ants', { title: 'Ants page', count: result, ants });
   });
 
-  client.write({ role, cmd, ants });
+  clients.antscounter.write({ role: 'antscounter', cmd: 'count', ants });
 });
 
 function createClient(ns, opts) {
