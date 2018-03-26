@@ -24,7 +24,7 @@ function wire(service) {
 
 function createPatternRoutes(service) {
   const patterns = bloomrun();
-  patterns.add({ role: 'analytics', cmd: 'append' }, service.append);
+  patterns.add({ role: 'analytics', cmd: 'log' }, service.append);
   patterns.add({ role: 'analytics', cmd: 'list' }, service.list);
 
   return patterns;

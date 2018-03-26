@@ -19,7 +19,7 @@ router.get('/', function (req, res, next) {
     res.render('analytics', { title: 'Analytics', list: data.list });
   });
 
-  client.write({ role, cmd, ants });
+  client.write({ role, cmd });
 });
 
 function createClient(ns, opts) {

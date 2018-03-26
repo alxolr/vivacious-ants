@@ -23,9 +23,7 @@ router.post('/count', (req, res, next) => {
 
   clients.antscounter.once('data', (data) => {
     const { result } = data;
-
     clients.analytics.write({ role: 'analytics', cmd: 'log', ants, result }); // we are logging asynchronously
-
     res.render('ants', { title: 'Ants page', count: result, ants });
   });
 
