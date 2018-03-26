@@ -2,6 +2,8 @@
 
 > The repository and the code examples comes as a support for the [Solving microservices shell hell with fuge](https://www.alxolr.com/articles/solving-microservices-shell-hell-with-fuge).
 
+This repository is heavy inspired from the [Node cookbook](https://www.amazon.com/Node-Cookbook-Actionable-solutions-development/dp/178588008X) recipe.
+
 For this tutorial you will need docker and mongo image and node 8.x.
 
 ## Installation
@@ -15,9 +17,9 @@ For this tutorial you will need docker and mongo image and node 8.x.
 * Go to `vivacious-ants` directory and start the fuge shell.
 
 ```bash
-fuge shell fuge.yml
+fuge shell fuge.yml # will start the shell for all the microservices
 
-fuge start all
+fuge apply npm install # will run npm install for every microservice
 ```
 
 * After running:
