@@ -34,11 +34,11 @@ You should get something like:
 name                          type           status         watch          tail
 antscounter                   node           running        yes            yes
 analytics                     node           running        yes            yes
-app                           node           running        yes            yes
+webapp                        node           running        yes            yes
 mongo                         container      not managed
 ```
 
 ## Usage
 
-* Ants home page http://localhost:3000/ants
+* Ants home page http://localhost:3000/
 * Ants analytics http://localhost:3000/analytics

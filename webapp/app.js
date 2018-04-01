@@ -19,11 +19,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', (req, res, next) => {
-  return res.redirect('/ants');
-});
-
-app.use('/ants', antsRouter);
+app.use('/', antsRouter);
 app.use('/analytics', analyticsRouter);
 
 // catch 404 and forward to error handler

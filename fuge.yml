@@ -20,7 +20,7 @@ analytics:
     - main=8081
 webbapp:
   type: node
-  path: ./app
+  path: ./webapp
   run: 'node ./bin/www'
   ports:
     - main=3000
