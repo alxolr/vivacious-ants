@@ -1,63 +1,67 @@
 const { MongoClient } = require('mongodb');
+const { dns } = require('concordant')();
 
-const {
-  MONGO_SERVICE_HOST,
-  MONGO_SERVICE_PORT,
-} = process.env;
+function initService() {
+  const dbName = 'analytics';
+  let db;
+  setup();
 
-const uri = `mongodb://${MONGO_SERVICE_HOST}:${MONGO_SERVICE_PORT}`;
-const databaseName = 'analytics';
+  function setup() {
+    const mongo = '_main._tcp.mongo.micro.svc.cluster.local';
 
-module.exports = function initService() {
+    dns.resolve(mongo, (err, locs) => {
+      if (err) {
+        console.error(err);
+
+        return;
+      }
+
+      const { host, port } = locs[0];
+      const uri = `mongodb://${host}:${port}/${dbName}`;
+      MongoClient.connect(uri, (err, conn) => {
+        if (err) {
+          console.error(err);
+
+          return;
+        }
+        db = conn.db(dbName);
+        db.on('close', () => db = null)
+      });
+    });
+  }
 
   function append(args, cb) {
-    MongoClient.connect(uri, (err, client) => {
-      const db = client.db(databaseName);
+    const logs = db.collection('logs');
+    const doc = {
+      ants: args.ants,
+      result: args.result,
+      createdAt: new Date(),
+    }
 
+    logs.insert(doc, (err, result) => {
       if (err) {
         return cb(err);
       }
 
-      const logs = db.collection('logs');
-      const doc = {
-        ants: args.ants,
-        result: args.result,
-        createdAt: new Date(),
-      }
-
-      logs.insert(doc, (err, result) => {
-        if (err) {
-          return cb(err);
-        }
-
-        cb(null, { result: result.toString() });
-        client.close();
-      });
-
+      cb(null, { result: result.toString() });
     });
   }
 
   function list(args, cb) {
-    MongoClient.connect(uri, (err, client) => {
+    const logs = db.collection('logs');
+    logs.find({}, { limit: 10 }).toArray((err, docs) => {
       if (err) {
         return cb(err);
       }
 
-      const db = client.db(databaseName);
-      const logs = db.collection('logs');
-      logs.find({}, { limit: 10 }).toArray((err, docs) => {
-        if (err) {
-          return cb(err);
-        }
-
-        cb(null, { list: docs });
-        client.close();
-      });
+      cb(null, { list: docs });
     });
   }
 
   return {
-    append,
     list,
-  };
-};
+    append,
+  }
+}
+
+module.exports = initService;

@@ -10,8 +10,9 @@
   "author": "Alexandru Olaru",
   "license": "ISC",
   "dependencies": {
-    "mongodb": "^3.0.5",
     "bloomrun": "^4.1.0",
+    "concordant": "^2.1.0",
+    "mongodb": "^3.0.5",
     "net-object-stream": "^2.1.0",
     "pump": "^3.0.0",
     "through2": "^2.0.3"
