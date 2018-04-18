@@ -12,20 +12,25 @@ fuge_global:
     - '**/node_modules/**'
     - '**/.git/**'
     - '**/*.log/'
-
+events:
+  type: node
+  path: ./events
+  run: 'node index.js'
+  ports:
+    - main=8080
 antscounter:
   type: node
   path: ./antscounter
   run: 'node index.js'
   ports:
-    - main=8080
+    - main=8081
 analytics:
   type: node
   path: ./analytics
   run: 'node index.js'
   ports:
-    - main=8081
-webbapp:
+    - main=8082
+webapp:
   type: node
   path: ./webapp
   run: 'node ./bin/www'
