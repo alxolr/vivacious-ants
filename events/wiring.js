@@ -5,7 +5,7 @@ const QNAME = 'eventservice';
 module.exports = wiring;
 
 function wiring(service) {
-  const endpoint = '_main_._tcp.redis.vivaciousants.svc.cluster.local';
+  const endpoint = '_main._tcp.redis.vivaciousants.svc.cluster.local';
 
   dns.resolve(endpoint, initQueue);
 
