@@ -3,7 +3,7 @@ fuge_global:
   dns_host: 127.0.0.1
   dns_port: 53053
   dns_suffix: svc.cluster.local
-  dns_namespace: micro
+  dns_namespace: vivaciousants
 
   tail: true
   run_containers: false

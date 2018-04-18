@@ -7,7 +7,7 @@ function initService() {
   setup();
 
   function setup() {
-    const mongo = '_main._tcp.mongo.micro.svc.cluster.local';
+    const mongo = '_main._tcp.mongo.vivaciousants.svc.cluster.local';
 
     dns.resolve(mongo, (err, locs) => {
       if (err) {
