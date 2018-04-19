@@ -8,6 +8,8 @@ const {
   ANALYTICS_SERVICE_PORT,
 } = process.env;
 
+module.exports = wire;
+
 function wire(service) {
   const patterns = createPatternRoutes(service);
   const matcher = createMatcherStream(patterns);
@@ -55,5 +57,3 @@ function failure(err) {
     console.error('Stream pipeline ended');
   }
 }
-
-module.exports = wire;
